@@ -1,0 +1,347 @@
+{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf330
+{\fonttbl\f0\fswiss\fcharset77 Helvetica-Bold;\f1\fswiss\fcharset77 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww15900\viewh19600\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+
+\f0\b\fs48 \cf0 Druid v?
+\f1\b0\fs24 \
+Keith Wiley\
+kwiley@cs.unm.edu\
+http://www.cs.unm.edu/~kwiley\
+\
+
+\f0\b\fs48 Introduction
+\f1\b0\fs24 \
+\
+Druid is a new kind of vector drawing program.  It lets the user create shapes which resemble two-dimensional nonfolding surfaces, just like paper cutouts laid down on a drawing board.  Druid's novel feature is its ability to represent interweaving scenes of surfaces, such as Celtic knots.  This task is difficult to achieve with existing drawing programs.  Druid makes this easy.\
+\
+
+\f0\b\fs48 Important Terminology
+\f1\b0\fs24 \
+\
+This description of Druid relies on terminology that the user may be unfamiliar with.  Therefore, I have included a brief glossary of relevant terms at the top of this document.  Please do not be intimidated by these terms.  This list is provided mainly as a reference to look back at as you read through the documentation, and will most likely be difficult to fully comprehend without reading the entire document in conjunction with the glossary itself.  This list is defined from top to bottom, such that later terms may refer to earlier terms in their definitions, but not vs/va.\
+\
+
+\f0\b Drawing
+\f1\b0 :				This is the one definition that refers to terms lower in the glossary.  Refer back to this definition as needed.  A set of closed splines.  A drawing can have many different configurations depending on the labeling assigned to it.  The variables of a drawing are the signs-of-occlusion, the crossing-states, and the segment depths.\
+\
+
+\f0\b Plane
+\f1\b0 :					A flat (nonbending, noncurving) 2D region of space, like a blank sheet of paper ready for drawing.  Usually used to refer to an infinite plane, i.e., a plane without boundaries.\
+\
+
+\f0\b Spline
+\f1\b0 :				A straight or curved line.  A 2D spline is confined to a plane, such as a drawing.\
+\
+
+\f0\b Closed Spline
+\f1\b0 :			A spline that does not have ends, but rather forms a continuous loop.\
+\
+
+\f0\b Surface
+\f1\b0 :				Usually used to refer to a bounded plane with respect to Druid.  The boundaries will be defined using closed splines.  Occasionally this document will refer to infinite surfaces, which are identical to infinite planes.\
+\
+
+\f0\b Scene of Surfaces
+\f1\b0 :		The illusion that a drawing in Druid corresponds to a set of real physical surfaces, such as pieces of paper lying on a drawing board.\
+\
+
+\f0\b Boundary
+\f1\b0 :				The 1D closed perimeter of a surface.  In Druid, boundaries are defined using closed splines.  This document often uses the terms spline and boundary without distinction.\
+\
+
+\f0\b Intersection
+\f1\b0 :				A location where two boundaries cross one another.\
+\
+
+\f0\b Crossing-State
+\f1\b0 :			The designation for an intersection of which boundary is above and which is below.  Every intersection has a single crossing-state that can take on one of two possible values.  This trait can be toggled using the proper tool.\
+\
+
+\f0\b Boundary Segment
+\f1\b0 :		The contiguous region of a boundary lying between two intersections on that boundary.  If a boundary has no intersections, the entire boundary is a single boundary segment and the boundary contains only one such segment.  Since it is impossible for a boundary to have an odd number of intersections, we do not need to be concerned with the definition of a boundary segment on a boundary with a single intersection.\
+\
+
+\f0\b Surface Subregion
+\f1\b0 :		A contiguous region of a surface.  This is generally used to refer to a region of a surface that is bounded by boundary segments of other surfaces that overlap the surface in question.  If a surface overlaps itself, the overlapping boundary segments may be used to define a subregion of that surface as well.  Additionally, this term often refers to unions of adjacent subregions, in which case the larger unioned subregion overlaps some boundary segments that intersect the union's interior.\
+\
+
+\f0\b Boundary Segment Depth
+\f1\b0 :	The depth index assigned to a particular boundary segment, where the depth corresponds to the number of overlapping surface subregions that lie between the viewer and that segment.  A segment that lies on top of the drawing has a depth of zero.  Often refered to simply as a segment depth rather than a boundary segment depth.\
+\
+
+\f0\b Solid
+\f1\b0 :					A boundary that bounds a surface in its interior.\
+\
+
+\f0\b Hole
+\f1\b0 :					A boundary that bounds a surface in its exterior.\
+\
+
+\f0\b Sign-of-Occlusion
+\f1\b0 :			The designation of a boundary as a solid or a hole.  Every boundary has a single sign-of-occlusion which determines whether the bounday bounds inwardly or outwardly.  This trait can be toggled using the proper tool.\
+\
+
+\f0\b Labeling
+\f1\b0 :				A description for a particular drawing consisting of a unique assignment of signs-of-occlusion for every boundary, crossing-states for every intersection, and boundary segment depths for every boundary segment.\
+\
+
+\f0\b Rendering
+\f1\b0 :				The process of generating a final image of a drawing.  In a rendered image, all subregions are assigned a color corresponding to the correct color that would be observed if the drawing were a real scene of surfaces.\
+\
+
+\f0\b Labeling Scheme
+\f1\b0 :			A set of constraints on the depths of the four segments meeting at an intersection.  The labeling scheme must be adhered to for every intersection in a drawing in order for the drawing to be rendered.\
+\
+
+\f0\b Legal Labeling
+\f1\b0 :			A labeling that honors the labeling scheme.  Such a labeling for a drawing can be rendered.  Illegal labelings cannot be rendered.\
+\
+
+\f0\b Labeling Search
+\f1\b0 :			A complex tree search algorithm that Druid automatically performs after important events occur.  The purpose of the labeling search is to find a legal labeling for the present drawing so that it can be rendered.\
+\
+
+\f0\b\fs48 Basic Appearance
+\f1\b0\fs24 \
+\
+When you launch Druid, you will see the working document along with a number of floating palettes and information windows:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 {{\NeXTGraphic Pasted Graphic.tiff \width16000 \height12800
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+\cf0 \
+
+\f0\b\fs48 Windows
+\f1\b0\fs24 \
+\
+Druid uses many minor windows in conjunction with a single major document window to provide a complete interface for the user to interact with.  The following is a basic description of the windows:\
+\
+-- The working document is the main window in the center of the screen.  By default, the grid is turned on, but this can be disabled from the Grid Settings menu.\
+\
+-- The tool palette is shown in the upper left corner.\
+\
+-- The technical color palette is shown next to the tool palette.  This window is used to assign colors to various technical aspects of the drawing such as spline features, background canvas color, etc.\
+\
+-- The Info window shows a number of potentially useful data about the drawing.\
+\
+-- The Tool Help window shows a short description of the selected tool and its associated modifier-key functions.\
+\
+-- The Search Status window gives feedback to the user about the progress of a labeling search.  This is mostly a debugging feature for use by the developers, but I have left it visible in the release version because it can provide useful information for expert users who know how to interpret and understand the feedback this window presents.\
+\
+-- The Surface Traits window allows the user to modify traits such as color and transperancy for a particular surface.\
+\
+
+\f0\b\fs48 Getting Started
+\f1\b0\fs24 \
+\
+Druid employs B-Splines as the boundaries of surfaces.  As such, all spline manipulation commands act on these B-Splines.  With the Super Spline tool {{\NeXTGraphic Pasted Graphic 1.tiff \width480 \height440
+}¬} (so named because it uses modifier keys to act as a union of all other spline-manipulating tools), or the New Spline tool {{\NeXTGraphic Pasted Graphic 2.tiff \width480 \height440
+}¬} selected, the user can define a surface by clicking on the canvas to define spline control-points.  To finish defining control-points, double-click to both create the last control-point and end the creation of the present spline.  All surfaces must be bounded by a spline with at least three control-points.  Therefore, if a surface is created with one or two control-points it will immediately and automatically be destroyed by Druid as if the user never created the surface in the first place.\
+\
+With the view set to Knot Mode (the default at launch, but alterable with the View menu), surfaces will be illustrated with a series of hash marks on one side of their bounding spline, illustrating the sign-of-occlusion, or which side of the boundary the surface lies on.  In the example below, the figure on the left shows a solid, in which the boundary bounds an interior surface, and the figure on the right shows a hole, in which the boundary bounds an exterior surface:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 {{\NeXTGraphic Pasted Graphic 4.tiff \width14300 \height14740
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+\cf0 \
+Notice that each spline is surrounded by a thin yellow polygon with red dots at its corners (these colors are configurable by clicking on the color boxes in the Colors window).  The red dots are the spline control-points and can be clicked and dragged with the Super Spline tool or the Move control-point tool {{\NeXTGraphic Pasted Graphic 5.tiff \width480 \height440
+}¬} to alter the shape of the spline.  Command-clicking on a control-point will translate the entire spline, not just the specific control-point that is manipulated.  It is important to get used to the method by which solids and holes are created.  The sign-of-occlusion is defined such that the surface always lies to the right of the direction in which control-points are defined for a spline.  Therefore, in order to create a solid, control-points are defined clockwise and in order to create a hole, control-points are defined counter-clockwise.  It's that simple.  Note that when the Super Spline tool is selected the user can convert a solid to a hole and vs/va by clicking directly on the spline.\
+\
+Control-points can be added to an existing spline by clicking or click-dragging on its yellow outline with either the Super Spline tool or the Add control-point tool {{\NeXTGraphic Pasted Graphic 6.tiff \width480 \height440
+}¬}.  The following figure shows the same surfaces from the previous figure after being modified by having control-points added to them.  The original three control-points for each boundary remain in their original locations, but new control-points have been added and dragged to various locations:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 {{\NeXTGraphic Pasted Graphic 7.tiff \width14300 \height14740
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+\cf0 \
+Likewise, control-points can be deleted from a boundary by either option-clicking on them with the Super Spline tool or clicking on them with the Remove Control-Point tool {{\NeXTGraphic Pasted Graphic 8.tiff \width480 \height440
+}¬}.  Remember that if the number of control-points ever falls below three, the entire boundary will automatically be destroyed.  The user can destroy an entire boundary by command-option-clicking on any part of a spline (control-point, control-point boundary, or spline) with the Super Spline tool, or by command-clicking on a control-point with the Remove Control-Point tool.\
+\
+B-Splines have a trait called the spline degree.  This trait governs the way in which the control-points are used to calculate where the actual curve should be drawn.  In particular, modifying the degree of a spline is a good way to control whether a spline is curvy or angular.  Any spline with a degree greater than 0 looks curvy.  Degree 0 splines look like polygons and have straight edges that lie along the yellow boundaries between the control-points.  The user can increase or decrease a spline's degree by control-clicking or option-control-clicking on any control-point with the Super Spline tool, or by clicking and option-clicking on a control-point with the Change Spline Degree tool {{\NeXTGraphic Pasted Graphic 9.tiff \width480 \height440
+}¬}.  The following figure shows the same spline (same control-points) with degrees 0, 1, 2, and 3 from left-to-right, top-to-bottom:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 {{\NeXTGraphic Pasted Graphic 10.tiff \width14300 \height14740
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+\cf0 \
+At any given moment, every boundary is either selected, hilighted, or normal.  Normal boundaries look like those illustrated so far.  Their control-points are small red dots, and control-point boundaries are faint yellow.  A hilighted boundary is one that is under the mouse.  This applies to control-points, control-point boundaries, and spline curves.  Whenever one of these three features lies directly under the mouse, that boundary is hilighted.  A hilighted boundary is shown by a control-point boundary of inverted color with respect to the normal control-point boundary color (so the inverse of light yellow by default).\
+\
+A selected spline is selected for operations that are not performed by clicking on the spline itself, such as manipulations in the Surface Traits window.  Alternatively, selected splines can be translated on the canvas, just like command-click-dragging on a control point with the Super Spline tool or the Move Control Point tool.  Selected splines are designated by a ring around every control-point and a thick control-point boundary.\
+\
+The Surface Selector tool {{\NeXTGraphic Pasted Graphic 11.tiff \width480 \height440
+}¬} is used to select one or more surfaces.  To select a surface, simply click on any part (control point, control point boundary, or spline curve) of any boundary associated with the surface.  To select multiple surfaces, control-click on one of each surface's boundaries to add or remove the surface from the selection.  A selection of surfaces can be translated in unison by dragging on any control point of a selected surface.  A selection can also be nudged around using the arrow keys.  A selection can be duplicated under the Edit menu.  Furthermore, the surface traits of a selection can be manipulated use the Surface Traits window.  To change the interior or border color, click on the square showing the specified color.  Note that while the Surface Traits Window includes options for Border Opacity and Border Thickness, these options are disabled in the present version of Druid.\
+\
+There is a second way to manipulate the color and opacity of a surface.  Using the Super Spline tool, shift-click on the spline curve to change its interior color, or shift-control-click on a spline curve to change its interior opacity.  In the latter case, a small slider will appear directly under the mouse that can be dragged left and right to adjust the opacity.\
+\
+It is important to note that the Surface Traits window will show the traits of a hilighted boundary even if that boundary is not part of the present selection.  In fact, the Surface Traits Window always shows the traits of the surface corresponding to the presently hilighted boundary, assuming that a boundary is hilighted in the first place.  This can be quite useful for comparing traits between surfaces.\
+\
+Note that traits are tied to surfaces, not to individual boundaries.  It is possible for a surface to have mutiple boundaries, such as in the following figure, which shows a solid that contains two holes.  The color and opacity traits are tied to the entire surface.  The boundaries are drawn in red because red is the color that has been assigned to the surface interior in this example.  This is a little confusing since the Surface Traits Window has traits for the border as well as the interior.  In Knot Mode view, border colors are not shown and boundaries are drawn in the interior color.  This is counter-intuitive but illustrates the more prominent feature of interior color at the expense of the less prominent feature of border color.  In Surface Mode, which shows a rendering of the drawing, border color and interior color as shown as they should logically appear.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 {{\NeXTGraphic 1__#$!@%!#__Pasted Graphic.tiff \width14300 \height14740
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+\cf0 \
+When two boundaries overlap each other, Druid automatically infers a top-bottom relationship between the overlapping subregions and clearly illustrates the scene:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 {{\NeXTGraphic 1__#$!@%!#__Pasted Graphic 2.tiff \width14300 \height14740
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+\cf0 \
+Notice in the above scene that no single surface is on top of the drawing.  Every surface is both above and below all over surfaces.  The scene shown above would be very difficult to create with any drawing program aside from Druid.  Here is what the same scene looks like rendered:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 {{\NeXTGraphic Pasted Graphic 3.tiff \width14300 \height14740
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+\cf0 \
+If the user does not like the default overlapping relationship for a particular subregion, he or she can easily toggle this relationship.  The method for manipulating subregion-overlapping relationships is one of the most important user-intersections in Druid.  Mastering this ability is crucial if a user hopes to create desired scenes quickly with Druid.\
+\
+To manipulate the overlapping relationship of two subregions, select the Super Spline tool and locate one of the boundary intersections associated with the overlapping region in question (illustrated below).  Then simply click on the intersection to toggle the crossing-state of the intersection, and by extension, toggle the overlapping state of the subregion in question.  This is called flipping the intersection.  Learning to recognize which intersections correspond to which subregions is a skill that you must be comfortable with in order to properly use Druid.  The following figure shows which intersections are associated with which overlapping regions.  Druid does not have a view like the following figure, it is purely schematic for educational purposes.  In the figure shown, there are three overlapping subregions, labeled A, B, and C.  The yellow intersections are associated with subregion A, the magenta intersections are associated with subregion B, and the cyan intersections are associated with subregion C.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 {{\NeXTGraphic 1__#$!@%!#__Pasted Graphic 4.tiff \width14300 \height14740
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+\cf0 \
+At this point, you have been presented with all of the necessary tools and commands to create any possible scene you could want.  Practice is all that is required now.  Using the commands described so far, a user can construct a variety of scenes that are extremely difficult to create with other drawing programs.  The following figure illustrates some examples:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 {{\NeXTGraphic 1__#$!@%!#__Pasted Graphic 8.tiff \width14300 \height14740
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+\cf0 \
+At this point, the user should be familiar with the required fundamental concepts of Druid.  The next sections elaborate on some fancier topics.\
+\
+
+\f0\b\fs48 Saving Files
+\f1\b0\fs24 \
+\
+Druid lets you save files as Druid files that can be reopened in Druid later.  This is fairly straight-forward.  Druid also lets you export Knot Mode and Surface Mode views to postscript files.  The only reason I mention this in the documentation is to point out that when in Knot Mode, the Export Postcript command creates a postscript file of the Knot Mode view, and when in Surface Mode, the same menu command creates a postscript file of the Surface Mode view.  Just be aware of this.  In most circumstances, the intention would be to create renderings of scenes of surfaces, so a user would normally switch to Surface Mode before exporting to postscript.\
+\
+
+\f0\b\fs48 Generating Text
+\f1\b0\fs24 \
+\
+Druid has a text generating tool {{\NeXTGraphic 1__#$!@%!#__Pasted Graphic 1.tiff \width480 \height440
+}¬}.  This tool is a little unreliable at the present time, but represents a beta version of a more powerful and more capable text tool that may exist in the future.  In order to create text, simply click on the text tool.  The user will be presented with a small dialog box in which to create a text string.  The dialog box lets the user choose a font and a font size.  As text is edited in the dialog, a red preview will be shown in the main document.  You cannot position the preview at this time.  By default, the preview will lie against the left edge of the document at approximately the vertical center of the document.\
+\
+When you are done editing the text, complete the operation by clicking OK or hitting return.  Druid will then create the text string as a set of B-Spline surfaces in the same location that the preview was shown.  Once text is converted to surfaces it is no longer text for practical purposes.  You can edit the surfaces as you would edit any surface in Druid.  If you wish to translate the entire text string to a new location, and you don't want to move the letters individually either because it is too tedious or because you don't want to lose the precise letter spacing, select all the relevant surfaces and move them together, as described earlier in this document.\
+\
+The following figure illustrates the new kinds of textual designs that are possible with Druid:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 {{\NeXTGraphic 1__#$!@%!#__Pasted Graphic 9.tiff \width14300 \height14740
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+\cf0 \
+There are three problems with converting text to Druid surfaces which contribute to the classification of this tool as a beta version of the tool.\
+\
+The first problem is that the conversion will not be precise.  In most cases, sharp corners of square-looking letters will be converted to round curves.  This cannot be overcome merely by reducing the degree of the spline to 0 because the curvy parts of letters will often appear angular as a result.  The cause of this problem is Druid's incomplete implementation of Truetype font rendering (not to be confused with Druid rendering of a scene of surfaces).  The text tool simply does not provide a full set of the necessary functions for rendering Truetype text. It is basically a proof-of-concept.\
+\
+The second problem with creating text is that certain fonts seem to be defined backwards, such that upon surface conversion, the surfaces corresponding to the letters are holes, not solids.  This can easily be fixed by toggling the sign-of-occlusion for each incorrect letter using the Super Spline tool.  Again, this problem derives from an incomplete implementation of Truetype font rendering.\
+\
+The third problem is that Truetype fonts, which conveniently define letters through a series of splines, much like Druid, often employ a fairly large number of control points in their splines.  This results in complex boundary definitions for the letter's surfaces which has two effects.  One, the process of converting text into surfaces (which occurs immediately after clicking the OK button or hitting return in the text dialog box, may take quite a while to complete.  Two, manipulations on the resulting letters will often be very slow and tedious.  The solution to this problem is to reduce the spline segmentation, which is described in the next section.\
+\
+
+\f0\b\fs48 Altering Spline Segmentation
+\f1\b0\fs24 \
+\
+Splines are mathematically defined as curves.  However, when drawing them on a computer screen, they are generated using piecewise-linear approximations of their curves, or a sequence of short straight line segments that approximately match the true curve.  The number of straight line segments to use is the spline segmentation of the spline.  At the present time, this trait is not assigned uniquely on a spline-by-spline basis in Druid, but rather is a global property of an entire document.  This property can be manipulated with the Increase Spline Segmentation tool {{\NeXTGraphic 2__#$!@%!#__Pasted Graphic 2.tiff \width480 \height440
+}¬}  and the Decrease Spline Segementation tool {{\NeXTGraphic 2__#$!@%!#__Pasted Graphic 4.tiff \width480 \height440
+}¬}.  In future versions this will have to be a property of individual splines, but presently this is not the case.\
+\
+The default segmentation is a good tradeoff between appearance and performance.  Most curves will look decently smooth (not showing angular elbows between straight line segments), while at the same time Druid will react reasonably quickly to user interactions.  However, there may be circumstances where you need more segmentation to  improve the appearance of a curve, or you alternatively, you feel that the appearance of a curve will not be hurt by decreasing the segmentation and that Druid is reacting too slowly.  A good example is generating text.  It is often a good idea to decrease the segmentation before (or immediately after) generating text.  Druid will react faster and most Truetype fonts seem to define splines that appear smooth with minimal segmentation.\
+\
+
+\f0\b\fs48 Cuts
+\f1\b0\fs24 \
+\
+Cuts are not a topic that most users need to worry about.  Cuts are used to connect multiple boundaries of a single surface.  They are called cuts because they are analagous to true scissor cuts across a surface between two of its boundaries.  The View menu provides the option of seeing cuts drawn on the screen in Spline Mode or Knot Mode.  They will not be visible in Surface Mode or a saved Surface Mode postscript file however.  The ability to view cuts is really only provided as a debugging tool for the developers and should not be a topic of concern for all but the most advanced users.  I only mention cuts briefly here since there are, in fact, available in the View menu and I wanted to make a quick mention them here so alleviate the most cursory of curiousity.  This documentation will not elaborate on cuts any further as they are a very advanced topic and in a truly end-user intended version of Druid, the role they play in Druid's functionality would be entirely hidden from the user-interface.  For a more in-depth understanding of cuts, I recommend you read any journal or conference papers I have written about Druid, or alternatively, my PhD thesis.\
+\
+
+\f0\b\fs48 Boundary Segment Depths
+\f1\b0\fs24 \
+\
+The View menu provides the option of viewing segment depths in Knot Mode.  When this option is enabled, Druid will write two numbers separated by a slash next to every boundary segment in the drawing.  The number after the slash shows the deepest depth that segment could ever be at (the number of surface subregions that overlap and therefore potentially occlude the segment).  The number before the slash shows the presently assigned depth for that segment.  Writing segment depth information on the drawing in this way is generally useful only as a debugging tool for the developers, but I have left the option available so that expert users can clearly see the depth index of every segment, should that information ever prove useful under certain circumstances.\
+\
+
+\f0\b\fs48 Understanding the Info Window
+\f1\b0\fs24 \
+\
+The Info window provides a lot of detailed information about the present drawing.  In particular, it shows:\
+\
+-- The pointer's pixel coordinates\
+-- The number of splines, cuts, and intersections in the drawing\
+-- The unique integer identifier for hilighted and working splines\
+-- Detailed information about hilighted intersections:\
+	-- The unique integer identifier for the intersection\
+	-- The intersection type (BB - BSpline-BSpline, BC - BSpline-Cut, BCT - BSpline-Cut T junction or end of a cut, CC - Cut-Cut)\
+	-- Integer identifiers of associated splines and/or cuts (bspA is always the bspline on top for BB intersections)\
+	-- Curve/segment information designating where the intersection is located on its associated splines\
+	-- Whether a BCT cut is as the start or end of the cut\
+-- The enumerated index of the control point presently being manipulated (assuming a control is presently being manipulated)\
+-- A list of the whole objects (a whole object is the same thing as a surface with one or more boundaries).  A depth of X means a surface is not infinite.  A numerical depth for a surface refers to an infinite surface (a surface with no enclosing solid)\
+\
+
+\f0\b\fs48 Understanding the Search Status Window
+\f1\b0\fs24 \
+\
+The Search Status window provides fairly low-level information about Druid's internal computations.  A professional user-end release version of Druid would not include this window or its associated data but it is useful for debugging and provides some interesting feedback for expert users.  Whenever a topological change occurs (intersections are flipped, intersections are created, intersections are destroyed, or the intersection order around boundaries changes), Druid searches for a new legal labeling.  This window provides real time feedback during the relabeling process which may or may not require a search for a new labeling (some interactions do not require a search, merely a direct update of certain features of the labeling.  Nevertheless, this window is where information about the relabeling process is presented.\
+\
+The top of the window, above the thin black line, includes basic information which describes the present settings for assigning relabelings:\
+\
+
+\f0\b Labeling Method
+\f1\b0 :			0 or 1: 0 always performs a search.  1 only performs a search when necessary.  When this is set to 1, the other settings will be grayed out because they only apply to the search (a little confusing since even with labeling method 1, a search may be required sometimes).\
+
+\f0\b \
+Companion Set Method
+\f1\b0 :		0, 1, or 2: 0 does not use equivalence classes at all, 1 uses them to order the search, but not to truncate the search.  2 uses them to truncate the search.\
+
+\f0\b \
+Section Enumeration Method
+\f1\b0 :	0, 1, or 2: 0 is out-of-date.  Don't bother with it.  1 enumerates section depths in the worst possible way to demonstrate worst case section enumeration during the search.  It would never be utilized, it is only available for comparison.  2 enumerates section depths in the best possible way to demonstrate best case section enumeration.\
+
+\f0\b \
+Bounding Method
+\f1\b0 :			0 or 1: 0 does not perform search and bound.  1 does.\
+
+\f0\b \
+Tree Search Method
+\f1\b0 :		0 does not perform iterative deepening.  1 does.\
+
+\f0\b \
+Time Limits
+\f1\b0 :				two numbers, both rounded to the floored nearest integer seconds.  The first time out stops the search if a legal solution has been found so far during the search process.  If the first time out is reach but no legal solution has been found, the search continues.  The second time out stops the search even if no legal solution has been found.  When this happens, the labeling attempt fails and the labeling does not change.\
+\
+There are also a set of bullets in the upper right corner.  There can be up to three bullets.  These bullets are correlated with the detail of output produces in this window during a relabeling attempt.  1 bullet signifies the sparsest output, 3 signifies the densest.\
+\
+Below the line you will see a variety of data that appear in real time during a relabeling attempt.  If you see bullets appearing in this area of the window, each bullet represents 1000 steps throught the search (the concept of step is a little hazy)  This only occurs with the densest output format (three bullets in the upper part of the window).  Whenever a solution is found, the details of that solution will be written, such as Delta, with two numbers, followed by the search time (in seconds) that has accumulated so far at the time the solution is found.  The two deltas show the number of intersection flips and segment depth changes associated with the solution.  If multiple solutions are found, multiple lines describing solutions will be presented in the window in the order they are found.  Solutions will only improve over time.  Once a solution is found, any subsequent solutions that are found will always be better solutions than those found earlier.\
+\
+The window may say Time limit expired at the bottom.  The search is confined to a reasonable period of time to keep user interactions quick and responsive.  If the search has not fully explored the space of possibilities when the time limit expires, you will see this message.  Druid will go with the best solution found so far, which will always be the lowest (most recent) solution present in the window.  Note that if Druid has not found a single solution by the time the time limit expires, the search will continue until the first solution is found.\
+\
+Finally, at the very bottom of the window, after a search is complete, it will say the total time for the entire search.\
+\
+060308\
+Keith Wiley\
+kwiley@cs.unm.edu\
+http://www.cs.unm.edu/~kwiley\
+}

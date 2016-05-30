@@ -1,0 +1,1 @@
+#ifndef __TRIG_CONSTANTS__#define __TRIG_CONSTANTS__//GLOBAL CONSTANTSconst long double Pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862;const long double PiTimes2 = Pi * 2.0;const long double PiOver2 = Pi / 2.0;const long double PiOver4 = Pi / 4.0;const double e = 2.71828;#endif

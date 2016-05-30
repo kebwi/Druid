@@ -1,0 +1,1 @@
+#ifndef __COLORS__#define __COLORS__struct Colors{	RGBColor canvas;	RGBColor controlPoint;	RGBColor boundary;	RGBColor curvePoint;	RGBColor segmentA;	RGBColor segmentB;	RGBColor intersection;};struct SurfaceTraits{	RGBColor interiorColor;	double interiorReflectance;	RGBColor borderColor;	double borderReflectance;	double borderThickness;};#endif
