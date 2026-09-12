@@ -2,9 +2,9 @@
 
 Keith Wiley
 
-kwiley@cs.unm.edu
+kwiley@keithwiley.com
 
-http://www.cs.unm.edu/~kwiley
+https://keithwiley.com
 
 **Introduction**
 
@@ -224,6 +224,6 @@ Finally, at the very bottom of the window, after a search is complete, it will s
 
 Keith Wiley
 
-kwiley@cs.unm.edu
+kwiley@keithwiley.com
 
-http://www.cs.unm.edu/~kwiley
+https://keithwiley.com
