@@ -1,4 +1,4 @@
-This directory was created to pull together all materials relevant to public dissemination of the Druid source code, along with a few ancillary files (documentation, key commands, etc.).  The point of this directory is to isolate the few parts relevant to distributing the code from the eclectic totality of the project so that I can easily organize a single Git repo (or similar repo).
+This directory was created to pulling together all materials relevant to public dissemination of the Druid source code, along with a few ancillary files (documentation, key commands, etc.).  The point of this directory is to isolate the few parts relevant to distributing the code from the eclectic totality of the project so that I can easily organize a single Git repo (or similar repo).
 
 The SourceCode/ directory found here was duplicated from the vDev/SourceCode/ directory on 20160530.
 
