@@ -4,65 +4,43 @@ Key Commands
 
 The following key commands are part of the basic functionality of Druid and would be included in a professional commercial release version:
 
-space				Toggles the hand tool
-
-arrows			Nudge the selected object
-
-delete (backspace)	Delete the selected object
+space                    Toggles the hand tool
+arrows                   Nudge the selected object
+delete (backspace)       Delete the selected object
 
 =================================================
 
 The following key commands would not generally be included in a professional commerical release version of Druid.  I use them to debug and otherwise manually control various aspects of Druid.  Feel free to exploit them as you see fit:
 
-l				Relabel
+l                        Relabel
+/                        Clear all depths
+?                        Clear labeling (clear all depths plus delete all cuts)
+' (apostrophe)           Delete all equivalence classes
+g                        Attempt to find better cuts.  Druid will beep if the present cuts are ideal (no cut has any intersections on it).  If the cuts are not ideal, keep hitting this key over and over again until they are ideal and Druid beeps.  This is a randomized algorithm, as is the initial cut search.  Thus, its behavior is unpredictable.  While one keypress may not clean up the cuts ideally, the next keypress might.  This command still has some occasional bugs.
 
-/				Clear all depths
-
-?				Clear labeling (clear all depths plus delete all cuts)
-
-' (apostrophe)		Delete all equivalence classes
-
-g				Attempt to find better cuts.  Druid will beep if the present cuts are ideal (no cut has any intersections on it).  If the cuts are not ideal, keep hitting this key over and over again until they are ideal and Druid beeps.  This is a randomized algorithm, as is the initial cut search.  Thus, its behavior is unpredictable.  While one keypress may not clean up the cuts ideally, the next keypress might.  This command still has some occasional bugs.
-
-\				Find all equivalence classes method 1 (will only work on legally labeled figures).  There is an occasional bug.
-
-| (pipe)			Find all equivalence classes method 2 (will work on unlabeled or legally labeled figures.  Not as efficient as method 1 however).
+\                        Find all equivalence classes method 1 (will only work on legally labeled figures).  There is an occasional bug.
+| (pipe)                 Find all equivalence classes method 2 (will work on unlabeled or legally labeled figures.  Not as efficient as method 1 however).
 
 =================================================
 
 The following key commands will change the settings shown in the area above the line in the Search Status window:
 
-[				Labeling method 0
-
-]				Labeling method 1
-
-1				Companion set method 0
-
-2				Companion set method 1
-
-3				Companion set method 2
-
-q				Section enumeration method 0
-
-w				Section enumeration method 1
-
-e				Section enumeration method 2
-
-a				Bounding method 0
-
-s				Bounding method 1
-
-z				Tree search method 0
-
-x				Tree search method 1
-
-, (comma)			Decrease time limits (although the first time limit may show 0, it is actually slightly positive)
-
-. (period)			Increase time limits
-
-` (back apostrophe)	Search status window verbosity level 2 (Level 1 is always enabled, this toggles the second level.  Disabling this level automatically disables level 3)
-
-~ (tilde)			Search status window verbosity level 3 (Enabling this level automatically enables level 2)
+[                        Labeling method 0
+]                        Labeling method 1
+1                        Companion set method 0
+2                        Companion set method 1
+3                        Companion set method 2
+q                        Section enumeration method 0
+w                        Section enumeration method 1
+e                        Section enumeration method 2
+a                        Bounding method 0
+s                        Bounding method 1
+z                        Tree search method 0
+x                        Tree search method 1
+, (comma)                Decrease time limits (although the first time limit may show 0, it is actually slightly positive)
+. (period)               Increase time limits
+` (back apostrophe)      Search status window verbosity level 2 (Level 1 is always enabled, this toggles the second level.  Disabling this level automatically disables level 3)
+~ (tilde)                Search status window verbosity level 3 (Enabling this level automatically enables level 2)
 
 =================================================
 
