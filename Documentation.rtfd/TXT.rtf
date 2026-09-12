@@ -7,8 +7,8 @@
 \f0\b\fs48 \cf0 Druid v?
 \f1\b0\fs24 \
 Keith Wiley\
-kwiley@cs.unm.edu\
-http://www.cs.unm.edu/~kwiley\
+kwiley@keithwiley.com\
+https://keithwiley.com\
 \
 
 \f0\b\fs48 Introduction
@@ -110,7 +110,7 @@ When you launch Druid, you will see the working document along with a number of 
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 {{\NeXTGraphic Pasted Graphic.tiff \width16000 \height12800
-}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+}Â¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
 \cf0 \
@@ -139,38 +139,38 @@ Druid uses many minor windows in conjunction with a single major document window
 \f1\b0\fs24 \
 \
 Druid employs B-Splines as the boundaries of surfaces.  As such, all spline manipulation commands act on these B-Splines.  With the Super Spline tool {{\NeXTGraphic Pasted Graphic 1.tiff \width480 \height440
-}¬} (so named because it uses modifier keys to act as a union of all other spline-manipulating tools), or the New Spline tool {{\NeXTGraphic Pasted Graphic 2.tiff \width480 \height440
-}¬} selected, the user can define a surface by clicking on the canvas to define spline control-points.  To finish defining control-points, double-click to both create the last control-point and end the creation of the present spline.  All surfaces must be bounded by a spline with at least three control-points.  Therefore, if a surface is created with one or two control-points it will immediately and automatically be destroyed by Druid as if the user never created the surface in the first place.\
+}Â¬} (so named because it uses modifier keys to act as a union of all other spline-manipulating tools), or the New Spline tool {{\NeXTGraphic Pasted Graphic 2.tiff \width480 \height440
+}Â¬} selected, the user can define a surface by clicking on the canvas to define spline control-points.  To finish defining control-points, double-click to both create the last control-point and end the creation of the present spline.  All surfaces must be bounded by a spline with at least three control-points.  Therefore, if a surface is created with one or two control-points it will immediately and automatically be destroyed by Druid as if the user never created the surface in the first place.\
 \
 With the view set to Knot Mode (the default at launch, but alterable with the View menu), surfaces will be illustrated with a series of hash marks on one side of their bounding spline, illustrating the sign-of-occlusion, or which side of the boundary the surface lies on.  In the example below, the figure on the left shows a solid, in which the boundary bounds an interior surface, and the figure on the right shows a hole, in which the boundary bounds an exterior surface:\
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 {{\NeXTGraphic Pasted Graphic 4.tiff \width14300 \height14740
-}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+}Â¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
 \cf0 \
 Notice that each spline is surrounded by a thin yellow polygon with red dots at its corners (these colors are configurable by clicking on the color boxes in the Colors window).  The red dots are the spline control-points and can be clicked and dragged with the Super Spline tool or the Move control-point tool {{\NeXTGraphic Pasted Graphic 5.tiff \width480 \height440
-}¬} to alter the shape of the spline.  Command-clicking on a control-point will translate the entire spline, not just the specific control-point that is manipulated.  It is important to get used to the method by which solids and holes are created.  The sign-of-occlusion is defined such that the surface always lies to the right of the direction in which control-points are defined for a spline.  Therefore, in order to create a solid, control-points are defined clockwise and in order to create a hole, control-points are defined counter-clockwise.  It's that simple.  Note that when the Super Spline tool is selected the user can convert a solid to a hole and vs/va by clicking directly on the spline.\
+}Â¬} to alter the shape of the spline.  Command-clicking on a control-point will translate the entire spline, not just the specific control-point that is manipulated.  It is important to get used to the method by which solids and holes are created.  The sign-of-occlusion is defined such that the surface always lies to the right of the direction in which control-points are defined for a spline.  Therefore, in order to create a solid, control-points are defined clockwise and in order to create a hole, control-points are defined counter-clockwise.  It's that simple.  Note that when the Super Spline tool is selected the user can convert a solid to a hole and vs/va by clicking directly on the spline.\
 \
 Control-points can be added to an existing spline by clicking or click-dragging on its yellow outline with either the Super Spline tool or the Add control-point tool {{\NeXTGraphic Pasted Graphic 6.tiff \width480 \height440
-}¬}.  The following figure shows the same surfaces from the previous figure after being modified by having control-points added to them.  The original three control-points for each boundary remain in their original locations, but new control-points have been added and dragged to various locations:\
+}Â¬}.  The following figure shows the same surfaces from the previous figure after being modified by having control-points added to them.  The original three control-points for each boundary remain in their original locations, but new control-points have been added and dragged to various locations:\
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 {{\NeXTGraphic Pasted Graphic 7.tiff \width14300 \height14740
-}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+}Â¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
 \cf0 \
 Likewise, control-points can be deleted from a boundary by either option-clicking on them with the Super Spline tool or clicking on them with the Remove Control-Point tool {{\NeXTGraphic Pasted Graphic 8.tiff \width480 \height440
-}¬}.  Remember that if the number of control-points ever falls below three, the entire boundary will automatically be destroyed.  The user can destroy an entire boundary by command-option-clicking on any part of a spline (control-point, control-point boundary, or spline) with the Super Spline tool, or by command-clicking on a control-point with the Remove Control-Point tool.\
+}Â¬}.  Remember that if the number of control-points ever falls below three, the entire boundary will automatically be destroyed.  The user can destroy an entire boundary by command-option-clicking on any part of a spline (control-point, control-point boundary, or spline) with the Super Spline tool, or by command-clicking on a control-point with the Remove Control-Point tool.\
 \
 B-Splines have a trait called the spline degree.  This trait governs the way in which the control-points are used to calculate where the actual curve should be drawn.  In particular, modifying the degree of a spline is a good way to control whether a spline is curvy or angular.  Any spline with a degree greater than 0 looks curvy.  Degree 0 splines look like polygons and have straight edges that lie along the yellow boundaries between the control-points.  The user can increase or decrease a spline's degree by control-clicking or option-control-clicking on any control-point with the Super Spline tool, or by clicking and option-clicking on a control-point with the Change Spline Degree tool {{\NeXTGraphic Pasted Graphic 9.tiff \width480 \height440
-}¬}.  The following figure shows the same spline (same control-points) with degrees 0, 1, 2, and 3 from left-to-right, top-to-bottom:\
+}Â¬}.  The following figure shows the same spline (same control-points) with degrees 0, 1, 2, and 3 from left-to-right, top-to-bottom:\
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 {{\NeXTGraphic Pasted Graphic 10.tiff \width14300 \height14740
-}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+}Â¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
 \cf0 \
@@ -179,7 +179,7 @@ At any given moment, every boundary is either selected, hilighted, or normal.  N
 A selected spline is selected for operations that are not performed by clicking on the spline itself, such as manipulations in the Surface Traits window.  Alternatively, selected splines can be translated on the canvas, just like command-click-dragging on a control point with the Super Spline tool or the Move Control Point tool.  Selected splines are designated by a ring around every control-point and a thick control-point boundary.\
 \
 The Surface Selector tool {{\NeXTGraphic Pasted Graphic 11.tiff \width480 \height440
-}¬} is used to select one or more surfaces.  To select a surface, simply click on any part (control point, control point boundary, or spline curve) of any boundary associated with the surface.  To select multiple surfaces, control-click on one of each surface's boundaries to add or remove the surface from the selection.  A selection of surfaces can be translated in unison by dragging on any control point of a selected surface.  A selection can also be nudged around using the arrow keys.  A selection can be duplicated under the Edit menu.  Furthermore, the surface traits of a selection can be manipulated use the Surface Traits window.  To change the interior or border color, click on the square showing the specified color.  Note that while the Surface Traits Window includes options for Border Opacity and Border Thickness, these options are disabled in the present version of Druid.\
+}Â¬} is used to select one or more surfaces.  To select a surface, simply click on any part (control point, control point boundary, or spline curve) of any boundary associated with the surface.  To select multiple surfaces, control-click on one of each surface's boundaries to add or remove the surface from the selection.  A selection of surfaces can be translated in unison by dragging on any control point of a selected surface.  A selection can also be nudged around using the arrow keys.  A selection can be duplicated under the Edit menu.  Furthermore, the surface traits of a selection can be manipulated use the Surface Traits window.  To change the interior or border color, click on the square showing the specified color.  Note that while the Surface Traits Window includes options for Border Opacity and Border Thickness, these options are disabled in the present version of Druid.\
 \
 There is a second way to manipulate the color and opacity of a surface.  Using the Super Spline tool, shift-click on the spline curve to change its interior color, or shift-control-click on a spline curve to change its interior opacity.  In the latter case, a small slider will appear directly under the mouse that can be dragged left and right to adjust the opacity.\
 \
@@ -189,7 +189,7 @@ Note that traits are tied to surfaces, not to individual boundaries.  It is poss
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 {{\NeXTGraphic 1__#$!@%!#__Pasted Graphic.tiff \width14300 \height14740
-}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+}Â¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
 \cf0 \
@@ -197,7 +197,7 @@ When two boundaries overlap each other, Druid automatically infers a top-bottom 
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 {{\NeXTGraphic 1__#$!@%!#__Pasted Graphic 2.tiff \width14300 \height14740
-}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+}Â¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
 \cf0 \
@@ -205,7 +205,7 @@ Notice in the above scene that no single surface is on top of the drawing.  Ever
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 {{\NeXTGraphic Pasted Graphic 3.tiff \width14300 \height14740
-}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+}Â¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
 \cf0 \
@@ -215,7 +215,7 @@ To manipulate the overlapping relationship of two subregions, select the Super S
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 {{\NeXTGraphic 1__#$!@%!#__Pasted Graphic 4.tiff \width14300 \height14740
-}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+}Â¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
 \cf0 \
@@ -223,7 +223,7 @@ At this point, you have been presented with all of the necessary tools and comma
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 {{\NeXTGraphic 1__#$!@%!#__Pasted Graphic 8.tiff \width14300 \height14740
-}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+}Â¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
 \cf0 \
@@ -240,7 +240,7 @@ Druid lets you save files as Druid files that can be reopened in Druid later.  T
 \f1\b0\fs24 \
 \
 Druid has a text generating tool {{\NeXTGraphic 1__#$!@%!#__Pasted Graphic 1.tiff \width480 \height440
-}¬}.  This tool is a little unreliable at the present time, but represents a beta version of a more powerful and more capable text tool that may exist in the future.  In order to create text, simply click on the text tool.  The user will be presented with a small dialog box in which to create a text string.  The dialog box lets the user choose a font and a font size.  As text is edited in the dialog, a red preview will be shown in the main document.  You cannot position the preview at this time.  By default, the preview will lie against the left edge of the document at approximately the vertical center of the document.\
+}Â¬}.  This tool is a little unreliable at the present time, but represents a beta version of a more powerful and more capable text tool that may exist in the future.  In order to create text, simply click on the text tool.  The user will be presented with a small dialog box in which to create a text string.  The dialog box lets the user choose a font and a font size.  As text is edited in the dialog, a red preview will be shown in the main document.  You cannot position the preview at this time.  By default, the preview will lie against the left edge of the document at approximately the vertical center of the document.\
 \
 When you are done editing the text, complete the operation by clicking OK or hitting return.  Druid will then create the text string as a set of B-Spline surfaces in the same location that the preview was shown.  Once text is converted to surfaces it is no longer text for practical purposes.  You can edit the surfaces as you would edit any surface in Druid.  If you wish to translate the entire text string to a new location, and you don't want to move the letters individually either because it is too tedious or because you don't want to lose the precise letter spacing, select all the relevant surfaces and move them together, as described earlier in this document.\
 \
@@ -248,7 +248,7 @@ The following figure illustrates the new kinds of textual designs that are possi
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 {{\NeXTGraphic 1__#$!@%!#__Pasted Graphic 9.tiff \width14300 \height14740
-}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+}Â¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
 \cf0 \
@@ -265,8 +265,8 @@ The third problem is that Truetype fonts, which conveniently define letters thro
 \f1\b0\fs24 \
 \
 Splines are mathematically defined as curves.  However, when drawing them on a computer screen, they are generated using piecewise-linear approximations of their curves, or a sequence of short straight line segments that approximately match the true curve.  The number of straight line segments to use is the spline segmentation of the spline.  At the present time, this trait is not assigned uniquely on a spline-by-spline basis in Druid, but rather is a global property of an entire document.  This property can be manipulated with the Increase Spline Segmentation tool {{\NeXTGraphic 2__#$!@%!#__Pasted Graphic 2.tiff \width480 \height440
-}¬}  and the Decrease Spline Segementation tool {{\NeXTGraphic 2__#$!@%!#__Pasted Graphic 4.tiff \width480 \height440
-}¬}.  In future versions this will have to be a property of individual splines, but presently this is not the case.\
+}Â¬}  and the Decrease Spline Segementation tool {{\NeXTGraphic 2__#$!@%!#__Pasted Graphic 4.tiff \width480 \height440
+}Â¬}.  In future versions this will have to be a property of individual splines, but presently this is not the case.\
 \
 The default segmentation is a good tradeoff between appearance and performance.  Most curves will look decently smooth (not showing angular elbows between straight line segments), while at the same time Druid will react reasonably quickly to user interactions.  However, there may be circumstances where you need more segmentation to  improve the appearance of a curve, or you alternatively, you feel that the appearance of a curve will not be hurt by decreasing the segmentation and that Druid is reacting too slowly.  A good example is generating text.  It is often a good idea to decrease the segmentation before (or immediately after) generating text.  Druid will react faster and most Truetype fonts seem to define splines that appear smooth with minimal segmentation.\
 \
@@ -342,6 +342,6 @@ Finally, at the very bottom of the window, after a search is complete, it will s
 \
 060308\
 Keith Wiley\
-kwiley@cs.unm.edu\
-http://www.cs.unm.edu/~kwiley\
+kwiley@keithwiley.com\
+https://keithwiley.com\
 }
