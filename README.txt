@@ -2,13 +2,11 @@ This directory was created by pulling together all materials relevant to public 
 
 The SourceCode/ directory found here was duplicated from the vDev/SourceCode/ directory on 20160530.
 
-The Documentation.rtfd and 'Druid key commands.rtf' files found here were duplicated from the Druid060308/ directory on 20160530.
-
-Note that I have preserved all the files in their archived format, which means the email address and website listed in the documentation and commands files are defunct.  My current contact information at the time of this writing is at the bottom of this file.
+The Documentation.rtfd and 'Druid key commands.rtf' files found here were duplicated from the Druid060308/ directory on 20160530. I have since updated the contact information and generated html and md versions of the documentation as well.
 
 More information, including posters, presentation slides, tech reports, conference and journal publications, and my dissertation, can be found on my website at http://keithwiley.com/software/druid.shtml .
 
 20160530
 Keith Wiley
 kwiley@keithwiley.com
-http://keithwiley.com
+https://keithwiley.com
